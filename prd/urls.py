@@ -6,6 +6,7 @@ from .views import  (home, add_product, add_category, add_sale,add_staff,
                     list_sales,credit_list, update_sale, update_credit,add_payment,
                     credit_detail,create_boss_expense,create_salary, salary_list,Salary_Pay,
                     boss_expense_list,search_view, staff_payments_view,credit_payments_view)
+from staf import views
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -41,9 +42,17 @@ urlpatterns = [
     path('salary_list/',salary_list, name='salary_list'),
     path('stf_sal_list/<int:salary_id>/',staff_payments_view, name='stf_sal_list'),
     path('salary_pay/<int:salary_id>/', Salary_Pay, name='salary_pay'),
-     path('crd_sal_list/<int:credit_id>/',credit_payments_view, name='crd_sal_list'),
-    
+    path('crd_sal_list/<int:credit_id>/',credit_payments_view, name='crd_sal_list'),
     path('search/',search_view, name='search_view'),
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='logout'),
+    path('list_product/', views.list_product, name='list_product'),
+    path('sales/<str:date>/',views.daily_sales_view, name='daily_sales'),
+    path('date_sale/', views.sales_dates_view, name='date_sale'),
+    path('prod_loan/', views.list_pro_loan, name='prod_loan'),
+    path('pay_qrsho/<int:product_id>', views.pay_qrsho, name='pay_qrsho'),
+    path('list_qrsho/<int:product_id>', views.list_qrsho_pay, name='list_qrsho'),
     
     #path('create_credit_sale/', create_credit_sale, name='create_credit_sale'),
      #path('credit_sales_list/', list_credit_sales, name='credit_sales_list'),

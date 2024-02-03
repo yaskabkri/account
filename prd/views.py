@@ -35,7 +35,6 @@ def add_category(request):
             return redirect('home')
     return render(request, 'prd/add_cat.html',{'form':form})        
 
-@login_required
 def add_sale(request):
     
     form = SaleForm()
@@ -69,7 +68,7 @@ def list_staff(request):
     return render(request, 'prd/staff_list.html', {'staff_members': staff_members,'salary':salary})    
 from django.db.models import Count
 from .models import Staff, Attendance
-@login_required
+
 def staff_detail(request, staff_id):
     staff = Staff.objects.get(pk=staff_id)
     sales = Sale.objects.filter(staff=staff)
