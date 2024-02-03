@@ -1,0 +1,73 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <title>Sale List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <h1>لائحة الديون</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                
+                <th>النوعية</th>
+                <th>المبلغ</th>
+                <th>التاريخ</th>
+                
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in boss_expenses %}
+            
+            <tr>
+                <td>{{ sale.boss_ex }}</td>
+                <td>{{ sale.amount }}</td>
+                <td>{{ sale.date }}</td>
+                
+
+        
+                
+                
+
+                
+                
+                
+            </tr>
+            
+            {% endfor %}
+            
+            
+        </tbody>
+
+        
+            
+            
+            
+            
+            
+
+        
+                
+    </table>
+
+
+{% endblock %}
+

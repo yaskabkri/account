@@ -1,0 +1,200 @@
+<!-- base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your News Website</title>
+    <style>
+        body {
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-size: 10;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #030303;
+        }
+
+        header {
+            background-color: #f10b0b;
+            color: #fff;
+            padding: 10px;
+            
+        }
+
+        nav {
+            background-color: #080808f3;
+            color: #fff;
+            
+            padding: 10px;
+            text-align:calc();
+            
+            
+        }
+
+        #second-nav {
+            background-color: #6d6969;
+            color: #030303;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #third {
+            background-color: #8b8787;
+            color: #030303;
+            padding: 10px;
+            text-align: center;
+        }
+
+        section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+
+        /* Search bar styles */
+        #search-bar {
+            margin: 10px;
+            padding: 5px;
+            width: 200px;
+        }
+
+        /* League section styles (placeholder) */
+        #league-section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        a {
+            color: #e90909; /* Change this color to your desired link color */
+            text-decoration: none; /* Remove underlines from links */
+        }
+
+        a:hover {
+            text-decoration: underline; /* Add underlines on hover */
+        }
+
+
+        nav a, #second-nav a {
+            color: #fff;
+            padding: 10px; /* Add padding to create space between items */
+            text-decoration: none;
+        }
+
+        .wide-input {
+        width: 200px;
+        height: 20px;
+    }
+    .navbar-logo {
+            width: 350px; /* Adjust as needed */
+            height: auto;
+            
+            
+            
+
+        }
+    .ism {
+        text-align: right;
+        margin-bottom: 15px;
+    }
+    </style>
+</head>
+<body>
+
+<header>
+    <!-- Search bar -->
+    
+    <!-- navbar.html -->
+
+
+    
+</style>
+
+
+
+<form method="get" action="{% url 'search_view' %}">
+    <input type="text" name="q" placeholder="Search..." class="wide-input">
+    <button type="submit">Search</button>
+</form>
+
+
+</header>
+
+
+<nav>
+    
+         
+        <a href="{% url 'add_sale' %}">بيع</a>
+        <a href="{% url 'add_p' %}">اضف منتج</a>
+        <a href="{% url 'plot_cumulative_sales' %}">استعراض</a>
+        <a href="{% url 'login' %}">تسجيل دخول</a>
+       
+        <a href="{% url 'logout' %}">تسجيل خروج</a>
+        <a href="{% url 'add_cat' %}">اضف عينة</a>
+        <a href="{% url 'list_sale' %}">المبيعات</a>
+        <a href="{% url 'boss_ex' %}">اضافة خرجيات المدير</a>
+        <a href="{% url 'boss_list' %}">خرجيات المدير</a>
+        <a href="{% url 'date_sale' %}">المبيعات باليوم</a>
+        <a href="{% url 'home' %}">الرئيسية</a>
+        <a href="{% url 'register' %}">اشتراك</a>
+        
+    
+    
+</nav>
+
+<!-- Second navigation bar -->
+<nav id="second-nav">
+
+    
+    <a href="{% url 'credit_list' %}">ديون الزباين</a>
+    <a href="{% url 'list_staff' %}">قايمة العمال</a>
+
+    <a href="{% url 'add_staff' %}">سجل عامل</a>
+    <a href="{% url 'create_salary' %}">تحديد الرواتب</a>
+    <a href="{% url 'salary_list' %}">رواتب العمال</a>
+    <a href="{% url 'prod_loan' %}">تفاصيل المتخلصين</a>
+    <a href="{% url 'list_product' %}">تفاصيل المنتجات</a>
+    <a href="{% url 'list_staff' %}">كشف العمال</a>
+</nav>
+
+
+
+{% block content%}{% endblock %}
+
+
+
+
+{% load crispy_forms_tags %}
+<section>
+    <!-- Main content area -->
+    <h2></h2>
+    <!-- Add your news articles or content here -->
+</section>
+
+<section>
+    <!-- Featured stories or additional content -->
+    <h2></h2>
+    <img src="{% static 'NADA.jpg' %}"class="navbar-logo">
+    <!-- Add more content here -->
+</section>
+
+<!-- League section (placeholder) -->
+<section id="league-section">
+    <h2></h2>
+    <!-- Add content related to sports league -->
+</section>
+
+<footer>
+    <p>&copy; 2024 NADA_bkri-LMTD. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <title>Sale List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+<h1>Sale List</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>المنتج</th>
+            <th>العينة</th>
+            <th>الكميه الاصليه</th>
+            <th>الكمية المتبقيه</th>
+            <th>التكلفة</th>
+            <th>اسم المتخلص</th>
+            <th> المبلغ</th>
+            <th>اجمالي المدفوع</th>
+            <th>pay</th>
+            
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in prod %}
+        <tr>
+            <td>{{ sale.name }}</td>
+            <td>{{ sale.category }}</td>
+            <td>{{ sale.first_quantity }}</td>
+            <td>{{ sale.quantity_available }}</td>
+            <td>{{ sale.price }}</td>
+            <td>{{ sale.customer_name }}</td>
+            <td>{{sale.total_qrsho}}</td>
+            <td>{{sale.total_paid}}</td>
+            <td><a href="{% url 'pay_qrsho' product_id=sale.id %}">ادفع</a></td>
+        <td><a href="{% url 'list_qrsho' product_id=sale.id %}"></a>تفاصيل الدفع</td>
+        
+        </tr>
+        {% endfor %}
+        {{total_qrsho}}
+
+    </tbody>
+</table>
+
+            
+                
+               
+           
+
+
+{% endblock %}

@@ -1,0 +1,61 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <title>Sale List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <h1>Sale List</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>البائع</th>
+                <th>المنتح</th>
+                
+                <th>الكمية</th>
+                <th>القيمة</th>
+                <th>التاريخ</th>
+                <th>التكلفه</th>
+                <th> الكمية الاصليه</th>
+                <th>الكميةالباقيه</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in sales %}
+            <tr>
+                <td>{{ sale.staff.user}}</td>
+                <td>{{ sale.product.name }}</td>
+                <td>{{ sale.quantity_sold }}</td>
+                <td>{{ sale.sold_amount }}</td>
+                <td>{{ sale.sale_date }}</td>
+                <td>{{ sale.product.price }}</td>
+                <td>{{ sale.product.first_quantity }}</td>
+                <td>{{ sale.product.quantity_available }}</td>
+
+                
+                
+                
+            </tr>
+            {% endfor %}
+           
+        </tbody>
+    </table>
+
+{% endblock %}

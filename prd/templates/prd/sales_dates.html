@@ -1,0 +1,13 @@
+{%  extends 'base.html' %}
+{% block content %}
+    <meta charset="UTF-8">
+    <title>Sales Dates</title>
+</head>
+<body>
+    <h1>Sales Dates</h1>
+    <ul>
+        {% for date in sales_dates %}
+            <li><a href="{% url 'daily_sales' date=date|date:'Y-m-d' %}">{{ date|date:'F j, Y' }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

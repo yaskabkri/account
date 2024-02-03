@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block content%}
+<form method="post" action="{% url 'add_cat' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Add category</button>
+{% endblock%}

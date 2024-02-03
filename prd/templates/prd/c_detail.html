@@ -1,0 +1,82 @@
+
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <title>Sale List</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+    <h1>لائحة الديون</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>البائع</th>
+                <th>المنتح</th>
+                <th>الكمية</th>
+                <th>القيمة</th>
+                <th>التاريخ</th>
+                <th>الكميةالباقيه</th>  
+                <th>عربون</th> 
+                <th>الباقي</th> 
+                <th>اجمالي الباقي</th>
+                <th>وصل مبلغ</th> 
+                <th>تفاصيل الدفع</th> 
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for sale in c_detail %}
+            
+            <tr>
+                <td>{{ sale.sale.staff.first_name }}</td>
+                <td>{{ sale.sale.product.name }}</td>
+                <td>{{ sale.sale.quantity_sold }}</td>
+                <td>{{ sale.sale.sold_amount }}</td>
+                <td>{{ sale.sale.sale_date }}</td>
+                <td>{{ sale.sale.product.quantity_available }}</td>
+                <td>{{ sale.sale.partial_amount_paid}}</td>
+                <td>{{ sale.sale.remaining_amount}}</td>
+                <td>{{ sale.remaining_balance }}</td>
+                <td> <button type="submit"><a href="{% url 'add-payment' sale.id %}">وصل مبلغ</a></button><td>
+                <button type="submit"><a href="{% url 'crd_sal_list' sale.id %}">credit_list</a></button>
+            </tr>
+
+            
+                    
+            {% endfor %}
+            
+            
+        </tbody>
+
+        
+            
+            
+            {% for sale in c_detail %}
+            
+            
+                {{ sale.payment.payment_date }}
+                {{ sale.amount_paid}}
+            {% endfor %}
+        
+                
+    </table>
+
+
+{% endblock %}
+

@@ -1,0 +1,19 @@
+<!-- update_payment.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Payment</title>
+</head>
+<body>
+    <h1>Update Payment</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="paid_amount">Enter Paid Amount:</label>
+        <input type="text" name="paid_amount" id="paid_amount"><br><br>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

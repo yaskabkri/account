@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Payments</title>
+</head>
+<body>
+    <h1>Staff Payments</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>Amount Paid</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payment in credit_payments %}
+            <tr>
+                <td>{{ payment.credit.sale.customer_name }}</td>
+                <td>{{ payment.amount_paid }}</td>
+                <td>{{ payment.payment_date }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        <tr>
+            <td colspan="2">Total Amount Paid:</td>
+            <td>{{ total_amount_paid }}</td>
+        </tr>
+    </table>
+{% endblock %}

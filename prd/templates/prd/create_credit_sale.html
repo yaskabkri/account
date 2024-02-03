@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>مبيعات بالدين</h2>
+
+<p>فكر بحكمه قبل التسرع في الدين لانه لا قانون يلزم المستدين على الدفع</p>
+
+<div>
+
+
+</div>
+<div>
+
+
+</div>
+<form method="post" action="{% url 'create_credit_sale' %}">
+    {% csrf_token %}
+    {{form.as_p}}
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
+

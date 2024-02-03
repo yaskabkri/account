@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <h2>Search Results for "{{ query }}"</h2>
+
+    <h3>Staff</h3>
+    <ul>
+    
+        <li>{{ staff_member.first_name }} {{ staff_member.last_name }}</li>
+        <li>No staff members found.</li>
+    
+    </ul>
+
+    <h3>Products</h3>
+    <ul>
+    {% for product in products %}
+        <li>{{ product.name }}</li>
+    {% empty %}
+        <li>No products found.</li>
+    {% endfor %}
+    </ul>
+
+    <h3>Sales</h3>
+    <ul>
+    {% for sale_item in sale %}
+        <li>{{ sale_item.sold_amount }}</li>
+    {% empty %}
+        <li>No sales found.</li>
+    {% endfor %}
+    </ul>
+{% endblock %}

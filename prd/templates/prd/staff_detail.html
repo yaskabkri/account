@@ -1,0 +1,137 @@
+<!-- staff_detail.html -->
+
+{% extends 'base.html' %}
+{% block content %}
+<style>
+    /* styles.css */
+.staff-details,
+.staff-activities {
+    width: 100%;
+}
+
+.staff-details th,
+.staff-activities th,
+.staff-details td,
+.staff-activities td {
+    padding: 10px;
+    text-align: center;
+}
+
+.staff-details th,
+.staff-activities th {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+}
+
+.staff-details tr:nth-child(even),
+.staff-activities tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.staff-details tr:hover,
+.staff-activities tr:hover {
+    background-color: #e2f0ff;
+}
+
+/* Add any additional styling as needed */
+
+</style>
+
+<!-- staff_detail.html -->
+
+{% if staff.profile_picture %}
+    <img src="{{ staff.profile_picture.url }}" alt="{{ staff.name }}'s Profile Picture" width="150", border-radius="60">
+    {% else %}
+    {{staff.name}}
+        <p>No profile picture available</p>
+        
+    {% endif %}
+
+    <h2>{{ staff.user }} - تفاصيل</h2>
+     
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="table-responsive">
+                    <table class="table table-bordered staff-details">
+                        <tbody>
+                            <tr>
+                                <th>المجال</th>
+                                <th>التفاصيل</th>
+                            </tr>
+                            <tr>
+                                <td>الراتب</td>
+                                <td>{{ staff.salary }}</td>
+                            </tr>
+                            <tr>
+                                <td>رقم الهاتف</td>
+                                <td>{{ staff.phone_num }}</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>ايام الحضور</td>
+                                <td>{{total_attendance_days}}</td>
+                            </tr>
+                            <tr>
+                                <td>ايام الغياب</td>
+                                <td>{{ total_absent_days }}</td>
+                            </tr>
+                            
+                            {% if staff == request.user.staff %}
+                            <tr>
+                            <td>تسجيل دخول دوام</td>
+                            <td><button type="submit"><a href="{% url 'mark_check_in' staff_id=staff.id %}">checks in now</a></button></td>
+                            
+                             </tr> 
+                             {% endif %} 
+                             {% if staff == request.user.staff %}
+                           <tr>
+                            <td>تسجيل خروج </td>
+                           <td> <button type="submit"><a href="{% url 'mark_check_out' staff_id=staff.id %}">check out now</a></button></td>
+                           {% endif %}
+                        </tr>  
+                           </tr>
+                            <tr>
+                                <td>national ID</td>
+                                <td>{{ staff.national_id }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                </div>
+            </div>
+        
+
+            <div class="col-md-6">
+                <h3>Activities</h3>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped staff-activities">
+                        <thead>
+                            <tr>
+                                <th>المنتح</th>
+                                <th>الكمية</th>
+                                <th>القيمة</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for sale in sales %}
+                                <tr>
+                                    <td>{{ sale.product.name }}</td>
+                                    <td>{{ sale.quantity_sold }}</td>
+                                    <td>{{ sale.sold_amount }}</td>
+                                  
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <h3>اجمالي مبيعاته: {{ total_amount_sold }}</h3>
+            </div>
+        </div>
+    </div>
+    
+
+
+    {% endblock %}

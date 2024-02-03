@@ -1,0 +1,14 @@
+<!-- templates/plot_cumulative_sales.html -->
+
+
+{% extends 'base.html' %}
+{% block content %}
+<h2>Cumulative Sales Over Time</h2>
+
+{% if img_src %}
+    <img src="{{ img_src }}" alt="Cumulative Sales Over Time Plot">
+{% else %}
+    No sales data available
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base3.html' %}
+{% block content %}
+<!-- templates/view_loans.html -->
+
+<!-- templates/view_loans.html -->
+
+
+
+<h2>Loans</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Lender Name</th>
+            <th>Loan Date</th>
+            <th>Return Date</th>
+            <th>Returned</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for loan in loans %}
+            <tr>
+                <td>{{ loan.product.name }}</td>
+                <td>{{ loan.lender_name }}</td>
+                <td>{{ loan.loan_date }}</td>
+                <td>{{ loan.return_date }}</td>
+                <td>{{ loan.is_returned }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock%}

@@ -1,0 +1,25 @@
+{%  extends 'base.html' %}
+{% block content %}
+<h1>Sales for {{ date }}</h1>
+<table border="1">
+    <thead>
+        <tr>
+            <th>المنتج</th>
+            <th>الكميه الاصليه</th>
+            <th>الكمية المبيوعه</th>
+            <th>القيمة</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for sale in daily_sales %}
+        <tr>
+            <td>{{ sale.product.name }}</td>
+            <td>{{ sale.product.quantity_available }}</td>
+            <td>{{ sale.quantity_sold }}</td>
+            <td>{{ sale.sold_amount }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    {% endblock %}

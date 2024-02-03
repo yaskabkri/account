@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+
+
+<h2>List Staff</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>الموقع</th>
+            <th>الراتب</th>
+            <th>الباقي</th>
+            <th>اجمالي المسحوب</th>
+            <th>سحب مبلغ</th>
+            <th>تفاصيل السحبيات</th>
+            <th></th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        {% for staff_member in salaries %}
+            <tr>
+                <td>{{ staff_member.staff.first_name }}</td>
+                <td>{{ staff_member.staff.position }}</td>
+                <td>{{ staff_member.basic_salary}}</td>
+                <td>{{ staff_member.remaining_balance}}</td>
+                <td>{{ staff_member.total_paid}}</td>
+                <td><button type="submit"><a href="{% url 'salary_pay' salary_id=staff_member.id %}">withdraw</a></button></td>
+                <td><button type="submit"><a href="{% url 'stf_sal_list' salary_id=staff_member.id %}">تفاصيل السحبيات</a></button></td>
+                
+                
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

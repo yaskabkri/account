@@ -1,0 +1,34 @@
+<!-- templates/view_attendance.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Attendance</title>
+</head>
+<body>
+
+<h2>Today's Attendance</h2>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Staff Name</th>
+            <th>Check-in Time</th>
+            <th>Check-out Time</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for attendance_info in today_attendance %}
+            <tr>
+                <td>{{ attendance_info.staff.first_name }} {{ attendance_info.staff.last_name }}</td>
+                <td>{{ attendance_info.attendance.check_in_time|default:"Not Checked In" }}</td>
+                <td>{{ attendance_info.attendance.check_out_time|default:"Not Checked Out" }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+</body>
+</html>
