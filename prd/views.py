@@ -41,10 +41,11 @@ def add_sale(request):
     if request.method=='POST':
         form = SaleForm(request.POST)
         if form.is_valid():
-            if form['staff'] == request.user.staff.first_name:
-                form.save()
+            staff = form.cleaned_data['staff']
+            #if form['staff'] == request.user.staff.first_name:
+            form.save()
 
-            return redirect('home')
+            return redirect('list_sale')
     return render(request, 'prd/add_sale.html',{'form':form})  
 def add_staff(request):
     if request.method == 'POST':
@@ -255,7 +256,7 @@ def create_salary(request):
         form = SalaryForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('salary-list')
+            return redirect('home')
     else:
         form = SalaryForm()
     return render(request, 'prd/create_update.html', {'form': form})
@@ -350,7 +351,7 @@ def update_salary(request, pk):
     form = SalaryForm(request.POST or None, instance=salary)
     if form.is_valid():
         form.save()
-        return redirect('salary-list')
+        return redirect('home')
     return render(request, 'create_salary.html', {'form': form})
 
 def update_boss_expense(request, pk):

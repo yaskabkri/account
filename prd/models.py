@@ -90,6 +90,7 @@ from django.core.exceptions import ValidationError
 from .models import Product, Staff
 class Sale(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
     staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
     quantity_sold = models.PositiveIntegerField()
     partial_amount_paid = models.DecimalField(max_digits=10, decimal_places=2, default=0)

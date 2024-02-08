@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your News Website</title>
+    <title>accounting</title>
     <style>
         body {
             font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -36,21 +36,21 @@
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #6b6262;
+            background-color: #030303;
             min-width: 160px;
             box-shadow: 0 8px 16px 0 rgba(49, 43, 43, 0.2);
             z-index: 1;
         }
 
         .dropdown-content a {
-            color: black;
+            color: rgb(196, 184, 184);
             padding: 12px 16px;
             text-decoration: none;
             display: block;
         }
 
         .dropdown-content a:hover {
-            background-color: #f0a8a8;
+            background-color: #f12424;
         }
 
         .dropdown:hover .dropdown-content {
@@ -82,6 +82,16 @@
             background-color: #555;
         }
 
+        /* Style for dropdown button */
+        .dropbtn {
+            background-color: #080808; /* Background color */
+            color: white; /* Text color */
+            padding: 16px; /* Padding */
+            font-size: 16px; /* Font size */
+            border: none; /* No border */
+            cursor: pointer; /* Cursor style */
+        }
+
     </style>
 </head>
 <body>
@@ -94,44 +104,43 @@
     </form>
 </header>
 <nav class="navbar-2">
-    <a href="{% url 'add_sale' %}">بيع</a>
-    <a href="{% url 'plot_cumulative_sales' %}">استعراض</a>
-    <a href="{% url 'login' %}">تسجيل دخول</a>
-    <a href="{% url 'logout' %}">تسجيل خروج</a>
-    <a href="{% url 'home' %}">الرئيسية</a>
-    <a href="{% url 'register' %}">اشتراك</a>
+    <a href="{% url 'add_sale' %}">sale</a>
+    <a href="{% url 'plot_cumulative_sales' %}">explore</a>
+    <a href="{% url 'login' %}">login</a>
+    <a href="{% url 'logout' %}">logout</a>
+    <a href="{% url 'home' %}">home</a>
+    <a href="{% url 'register' %}">register</a>
 </nav>
 
 <nav>
     <div class="dropdown">
-        <button class="dropbtn">تفاصيل</button>
+        <button class="dropbtn">in details</button>
         <div class="dropdown-content">
-            <a href="{% url 'salary_list' %}">رواتب العمال</a>
-            <a href="{% url 'prod_loan' %}">تفاصيل المتخلصين</a>
-           <a href="{% url 'list_product' %}">تفاصيل المنتجات</a>
-           <a href="{% url 'boss_list' %}">خرجيات المدير</a>
-          <a href="{% url 'list_staff' %}">كشف العمال</a>
+            <a href="{% url 'salary_list' %}">salaries</a>
+            <a href="{% url 'prod_loan' %}">agent details</a>
+            <a href="{% url 'list_product' %}">products <details></details></a>
+            <a href="{% url 'boss_list' %}">boss expense</a>
+            <a href="{% url 'list_staff' %}">staff</a>
         </div>
     </div>
 
     <div class="dropdown">
-        <button class="dropbtn">مبيعات</button>
+        <button class="dropbtn">with sales</button>
         <div class="dropdown-content">
-            <a href="{% url 'list_sale' %}">المبيعات</a>
-            <a href="{% url 'date_sale' %}">المبيعات باليوم</a>
-            <a href="{% url 'credit_list' %}">ديون الزباين</a>
+            <a href="{% url 'list_sale' %}">sales list</a>
+            <a href="{% url 'date_sale' %}">daily sales</a>
+            <a href="{% url 'credit_list' %}">customers credits</a>
         </div>
     </div>
 
     <div class="dropdown">
-        <button class="dropbtn">اضافات</button>
+        <button class="dropbtn">basic</button>
         <div class="dropdown-content">
-            <a href="{% url 'add_p' %}">اضف منتج</a>
-        <a href="{% url 'add_cat' %}">اضف عينة</a>
-        <a href="{% url 'boss_ex' %}">اضافة خرجيات المدير</a>
-        <a href="{% url 'add_staff' %}">سجل عامل</a>
-        <a href="{% url 'create_salary' %}">تحديد الرواتب</a>
-
+            <a href="{% url 'add_p' %}">add product</a>
+            <a href="{% url 'add_cat' %}">add category</a>
+            <a href="{% url 'boss_ex' %}">add manager expense</a>
+            <a href="{% url 'add_staff' %}">add staff</a>
+            <a href="{% url 'create_salary' %}">add salary</a>
         </div>
     </div>
 </nav>

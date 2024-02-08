@@ -57,37 +57,37 @@
                     <table class="table table-bordered staff-details">
                         <tbody>
                             <tr>
-                                <th>المجال</th>
-                                <th>التفاصيل</th>
+                                <th>feild</th>
+                                <th>details</th>
                             </tr>
                             <tr>
-                                <td>الراتب</td>
+                                <td>salary</td>
                                 <td>{{ staff.salary }}</td>
                             </tr>
                             <tr>
-                                <td>رقم الهاتف</td>
+                                <td>phone</td>
                                 <td>{{ staff.phone_num }}</td>
                             </tr>
                             
                             <tr>
-                                <td>ايام الحضور</td>
+                                <td>attendace</td>
                                 <td>{{total_attendance_days}}</td>
                             </tr>
                             <tr>
-                                <td>ايام الغياب</td>
+                                <td>absents</td>
                                 <td>{{ total_absent_days }}</td>
                             </tr>
                             
                             {% if staff == request.user.staff %}
                             <tr>
-                            <td>تسجيل دخول دوام</td>
+                            <td>time in</td>
                             <td><button type="submit"><a href="{% url 'mark_check_in' staff_id=staff.id %}">checks in now</a></button></td>
                             
                              </tr> 
                              {% endif %} 
                              {% if staff == request.user.staff %}
                            <tr>
-                            <td>تسجيل خروج </td>
+                            <td>time out</td>
                            <td> <button type="submit"><a href="{% url 'mark_check_out' staff_id=staff.id %}">check out now</a></button></td>
                            {% endif %}
                         </tr>  
@@ -109,9 +109,9 @@
                     <table class="table table-bordered table-striped staff-activities">
                         <thead>
                             <tr>
-                                <th>المنتح</th>
-                                <th>الكمية</th>
-                                <th>القيمة</th>
+                                <th>item</th>
+                                <th>quantity</th>
+                                <th>amount</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,7 +127,7 @@
                     </table>
                 </div>
                 
-                <h3>اجمالي مبيعاته: {{ total_amount_sold }}</h3>
+                <h3>total sale: {{ total_amount_sold }}</h3>
             </div>
         </div>
     </div>

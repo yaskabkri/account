@@ -1,9 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h4> اسم الدخول : {{user}}</h4>
+<h4> user name: {{user}}</h4>
 
 
+<form method="post" action="{% url 'add_p' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+
+    <button type="submit">Add product</button>
 {% endblock %}
 
 
