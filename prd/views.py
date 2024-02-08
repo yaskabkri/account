@@ -7,15 +7,66 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.utils import timezone
+from datetime import datetime, timedelta
+from django.db import models
 
 def home(request):
+    timeframe = request.GET.get('timeframe', 'day')  # Default to 'day' if no timeframe is provided
+    today = timezone.now()
+    start_date = end_date = today
+
+    # Determine the start and end dates based on the selected timeframe
+    if timeframe == 'months':
+        start_date = today.replace(day=1)  # First day of the current month
+        end_date = start_date.replace(day=1, months=1) - timedelta(days=1)  # Last day of the current month
+
+    # Filter Sale objects based on the selected timeframe
+    sales = Sale.objects.filter(sale_date__range=[start_date, end_date])
+
+    # Calculate the total sale amount
+    total_sales_amount = sum(sale.sold_amount for sale in sales)
+    total_sold_qua = sum(sale.quantity_sold for sale in sales)
+    total_sale_credit = sum(sale.sold_amount for sale in sales if sale.is_loan)
+
+    # Fetch other necessary data
+    products = Product.objects.all()
+    prc_loan = sum(pro.price for pro in products if pro.is_loan)
+    qua_loan = sum(pro.first_quantity for pro in products if pro.is_loan)
+    total_product_loan = prc_loan * qua_loan
+    salaries = Salary_Payment.objects.filter(payment_date__range=[start_date, end_date])
+    payments = Payment.objects.filter(payment_date__range=[start_date, end_date])
+    total_payment = sum(pay.amount_paid for pay in payments)
+    #total_salaries =  sum(pay.withdraw_salary for pay in salaries)
+    #total_salary_paid = sum(pay.payment_amount for pay in salaries)
+    total_salary_paid = Salary_Payment.objects.aggregate(total_paid=models.Sum('amount_paid'))['total_paid'] or 0
     form = SaleForm()
     if request.method=='POST':
         form = SaleForm(request.POST)
         if form.is_valid():
             form.save()
 
-    return render(request, 'prd/home.html',{'form':form})
+
+
+    # Prepare the context to pass to the template
+    context = {
+        'products': products,
+        'sales': sales,
+        'salaries': salaries,
+        'total_sales_amount': total_sales_amount,
+        'total_sold_qua': total_sold_qua,
+        'total_sale_credit': total_sale_credit,
+        'total_product_loan': total_product_loan,
+        'timeframe': timeframe,
+        'start_date': start_date,
+        'end_date': end_date,
+        'total_payment':total_payment,
+        'total_salary_paid ': total_salary_paid ,
+        'form':form
+    }
+    
+
+    return render(request, 'prd/home.html',context)
 
 def add_product(request):
     form = ProductForm()

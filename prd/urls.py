@@ -53,6 +53,10 @@ urlpatterns = [
     path('prod_loan/', views.list_pro_loan, name='prod_loan'),
     path('pay_qrsho/<int:product_id>', views.pay_qrsho, name='pay_qrsho'),
     path('list_qrsho/<int:product_id>', views.list_qrsho_pay, name='list_qrsho'),
+    path('total/', views.total, name='total'),
+   
+
+
     
     #path('create_credit_sale/', create_credit_sale, name='create_credit_sale'),
      #path('credit_sales_list/', list_credit_sales, name='credit_sales_list'),

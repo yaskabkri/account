@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% block content %}
+    <style>
+        /* Add your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #eb5454;
+        }
+        td {
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            color: #333;
+        }
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .timeframe-select {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .timeframe-select select {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .timeframe-select button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <!-- Place your total sales table here -->
+    <h1>Total Sales</h1>
+    <table>
+        <tr>
+            <th>Attribute</th>
+            <th>Total</th>
+        </tr>
+        <tr>
+            <td>Total Sales Amount</td>
+            <td>${{ total_sales_amount }}</td>
+        </tr>
+       
+        <tr>
+            <td>Total Sale Credit</td>
+            <td>${{ total_sale_credit }}</td>
+        </tr>
+        <tr>
+            <td>Total Product Loan</td>
+            <td>${{ total_product_loan }}</td>
+        </tr>
+    </table>
+    <!-- Timeframe selection dropdown -->
+    <div class="timeframe-select">
+        <form method="get" action="{% url 'total' %}">
+            <select name="timeframe" id="timeframe">
+                <option value="day" {% if timeframe == 'day' %}selected{% endif %}>Per Day</option>
+                <option value="month" {% if timeframe == 'month' %}selected{% endif %}>Per Month</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

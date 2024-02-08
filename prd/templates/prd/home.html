@@ -1,14 +1,103 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h4> user name: {{user}}</h4>
+<style>
+    .content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: 20px auto;
+}
 
+.form-container {
+    width: 45%;
+}
 
-<form method="post" action="{% url 'add_p' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
+.sales-container {
+    width: 45%;
+}
 
-    <button type="submit">Add product</button>
+.total-sales-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.total-sales-table th, .total-sales-table td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.total-sales-table th {
+    background-color: #f2f2f2;
+}
+
+.total-sales-table td {
+    background-color: #fff;
+}
+
+.timeframe-select {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.timeframe-select select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+.timeframe-select button {
+    padding: 5px 10px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+</style>
+    <div class="content-container">
+        <div class="form-container">
+            <h4>User Name: {{ user }}</h4>
+
+            <form method="post" action="{% url 'add_p' %}">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <button type="submit">Add Product</button>
+            </form>
+        </div>
+
+        <div class="sales-container">
+            <h1>Total Sales</h1>
+            <table class="total-sales-table">
+                <tr>
+                    <th>Attribute</th>
+                    <th>Total</th>
+                </tr>
+                <tr>
+                    <td>Total Sales Amount</td>
+                    <td>${{ total_sales_amount }}</td>
+                </tr>
+               
+                <tr>
+                    <td>Total Sale Credit</td>
+                    <td>${{ total_sale_credit }}</td>
+                </tr>
+                <tr>
+                    <td>Total Product Loan</td>
+                    <td>${{ total_product_loan }}</td>
+                </tr>
+            </table>
+            <!-- Timeframe selection dropdown -->
+            <div class="timeframe-select">
+                <form method="get" action="{% url 'total' %}">
+                    <select name="timeframe" id="timeframe">
+                        <option value="day" {% if timeframe == 'day' %}selected{% endif %}>Per Day</option>
+                        <option value="month" {% if timeframe == 'month' %}selected{% endif %}>Per Month</option>
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
-
-
