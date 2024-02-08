@@ -2,6 +2,7 @@
 {% block content%}
 <form method="post" action="{% url 'add_p' %}">
     {% csrf_token %}
-    {{form.as_p}}
+    {{ form|crispy }}
+
     <button type="submit">Add product</button>
 {% endblock%}

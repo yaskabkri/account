@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-_6b1y57moh1p_e%ve4o_trqx4^w=t!^$rk)tkh@i*&oz-*jxd3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.0.105', '127.0.0.1']
 
 
 # Application definition
@@ -124,3 +124,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'  # Use 'bootstrap', 'bootstrap4', 'uni-form', or 'foundation-5'

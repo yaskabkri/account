@@ -4,6 +4,8 @@ from .models import Category, Product, Staff, Sale
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit
 
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column
 
 
 
@@ -16,6 +18,8 @@ class ProductForm(forms.ModelForm):
     class Meta:
         model = Product
         fields = ['name', 'category', 'price','first_quantity','customer_name', 'quantity_available','is_loan']
+
+
 
 class StaffForm(forms.ModelForm):
     class Meta:
