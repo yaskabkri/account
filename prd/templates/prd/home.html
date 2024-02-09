@@ -35,7 +35,7 @@
 }
 
 .total-sales-table td {
-    background-color: #fff;
+    background-color: #f02727;
 }
 
 .timeframe-select {
@@ -59,7 +59,7 @@
         <div class="form-container">
             <h4>User Name: {{ user }}</h4>
 
-            <form method="post" action="{% url 'add_p' %}">
+            <form method="post" action="{% url 'add_sale' %}">
                 {% csrf_token %}
                 {{ form.as_p }}
 
@@ -83,10 +83,7 @@
                     <td>Total Sale Credit</td>
                     <td>${{ total_sale_credit }}</td>
                 </tr>
-                <tr>
-                    <td>Total Product Loan</td>
-                    <td>${{ total_product_loan }}</td>
-                </tr>
+                
             </table>
             <!-- Timeframe selection dropdown -->
             <div class="timeframe-select">

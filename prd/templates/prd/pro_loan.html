@@ -35,6 +35,8 @@
             <th> amount</th>
             <th>total paid</th>
             <th>pay</th>
+            <th>paymentdetail</th>
+
             
 
         </tr>
@@ -51,11 +53,10 @@
             <td>{{sale.total_qrsho}}</td>
             <td>{{sale.total_paid}}</td>
             <td><a href="{% url 'pay_qrsho' product_id=sale.id %}">ادفع</a></td>
-        <td><a href="{% url 'list_qrsho' product_id=sale.id %}"></a>تفاصيل الدفع</td>
+            <td><a href="{% url 'list_qrsho' sale.id %}">payments</a></td>
         
         </tr>
         {% endfor %}
-        {{total_qrsho}}
 
     </tbody>
 </table>

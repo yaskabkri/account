@@ -107,7 +107,9 @@ def qrsho_payments_view(request, product_id):
     
 
     return render(request, 'prd/qrsho_payments.html', context)
-
+def list_qrsho_detals(request, qrsho_Payment_id):
+    payment = get_object_or_404(qrsho_Payment,qrsho_Payment_id)
+    return render(request, 'prd/list_qrsho_pay.html',{'payment':payment})
 
 def list_qrsho_pay(request, product_id):
     # Retrieve the product instance or return a 404 error if not found
@@ -168,7 +170,14 @@ def total(request):
     products = Product.objects.all()
     prc_loan = sum(pro.price for pro in products if pro.is_loan)
     qua_loan = sum(pro.first_quantity for pro in products if pro.is_loan)
-    total_product_loan = prc_loan * qua_loan
+    
+    
+    #total_product_loan = prc_loan 
+    total_loan_price = Product.objects.filter(is_loan=True).aggregate(total_loan_price=Sum('price'))['total_loan_price'] or 0
+    
+    # Calculate total price of products where is_loan is False
+    total_non_loan_price = Product.objects.filter(is_loan=False).aggregate(total_non_loan_price=Sum('price'))['total_non_loan_price'] or 0
+
     salaries = Salary_Payment.objects.filter(payment_date__range=[start_date, end_date])
     payments = Payment.objects.filter(payment_date__range=[start_date, end_date])
     total_payment = sum(pay.amount_paid for pay in payments)
@@ -187,7 +196,9 @@ def total(request):
         'total_sales_amount': total_sales_amount,
         'total_sold_qua': total_sold_qua,
         'total_sale_credit': total_sale_credit,
-        'total_product_loan': total_product_loan,
+        #'total_product_loan': total_product_loan,
+        'total_loan_prise':total_loan_price,
+        'total_non__loan_price':total_non_loan_price,
         'timeframe': timeframe,
         'start_date': start_date,
         'end_date': end_date,
@@ -198,59 +209,3 @@ def total(request):
     return render(request, 'prd/total.html', context)
 
 
-from django.shortcuts import render
-from datetime import datetime, date, timedelta
-from prd.models import Salary, Salary_Payment
-
-def total_salary_paid_day(request):
-    # Get today's date
-    today = datetime.today().date()
-
-    # Calculate total salary paid for today
-    total_salary_paid_today = Salary_Payment.objects.filter(payment_date__date=today).aggregate(total=Sum('amount_paid'))['total']
-    total_salary_paid_today = total_salary_paid_today or 0
-
-    # Render the HTML template with the calculated data
-    return render(request, 'prd/total_salary_paid.html', {'total_salary_paid_today': total_salary_paid_today})
-
-def total_salary_paid_month(request):
-    # Get the year and month for the current date
-    year = datetime.today().year
-    month = datetime.today().month
-
-    # Calculate total salary paid for the current month
-    start_date = date(year, month, 1)
-    end_date = start_date.replace(day=1, month=1) - timedelta(days=1)
-    total_salary_paid_month = Salary_Payment.objects.filter(payment_date__date__range=[start_date, end_date]).aggregate(total=Sum('amount_paid'))['total']
-    total_salary_paid_month = total_salary_paid_month or 0
-
-    # Render the HTML template with the calculated data
-    return render(request, 'prd/total_salary_paid.html', {'total_salary_paid_month': total_salary_paid_month})
-
-
-from django.shortcuts import render
-from prd.models import Salary
-from datetime import date, timedelta
-
-def total_withdrawal_day(request, year, month, day):
-    # Create a date object for the specified day
-    target_date = date(year, month, day)
-
-    # Filter Salary instances for the specified day and calculate total withdrawal
-    total_withdrawal_day = Salary.objects.filter(date=target_date).aggregate(total=Sum('deductions'))['total']
-    total_withdrawal_day = total_withdrawal_day or 0
-
-    # Render the HTML template with the calculated total withdrawal for the day
-    return render(request, 'prd/withdrawal_day.html', {'total_withdrawal_day': total_withdrawal_day, 'target_date': target_date})
-
-def total_withdrawal_month(request, year, month):
-    # Calculate the start and end dates for the specified month
-    start_date = date(year, month, 1)
-    end_date = start_date.replace(day=1, months=1) - timedelta(days=1)
-
-    # Filter Salary instances for the specified month and calculate total withdrawal
-    total_withdrawal_month = Salary.objects.filter(date__range=[start_date, end_date]).aggregate(total=Sum('deductions'))['total']
-    total_withdrawal_month = total_withdrawal_month or 0
-
-    # Render the HTML template with the calculated total withdrawal for the month
-    return render(request, 'prd/withdraw_month.html', {'total_withdrawal_month': total_withdrawal_month, 'start_date': start_date, 'end_date': end_date})

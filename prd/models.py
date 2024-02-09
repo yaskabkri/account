@@ -13,7 +13,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField(blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
@@ -27,6 +27,8 @@ class Product(models.Model):
         return self.price * self.first_quantity
     def total_paid(self):
         return sum(payment.amount_paid for payment in self.qrsho_payment_set.all())
+    def total_price(self, quantity=1):
+        return self.price * quantity
 
     
     
