@@ -146,6 +146,7 @@ from django.shortcuts import render
 from prd.models import Product, Salary, Staff, Sale
 from django.utils import timezone
 from datetime import datetime, timedelta
+from django.db.models import F, ExpressionWrapper, DecimalField
 
 def total(request):
     # Default values
@@ -167,9 +168,9 @@ def total(request):
     total_sale_credit = sum(sale.sold_amount for sale in sales if sale.is_loan)
 
     # Fetch other necessary data
-    products = Product.objects.all()
-    prc_loan = sum(pro.price for pro in products if pro.is_loan)
-    qua_loan = sum(pro.first_quantity for pro in products if pro.is_loan)
+    product = Product.objects.all()
+    prc_loan = sum(pro.price for pro in product if pro.is_loan)
+    qua_loan = sum(pro.first_quantity for pro in product if pro.is_loan)
     
     
     #total_product_loan = prc_loan 
@@ -184,13 +185,27 @@ def total(request):
     #total_salaries =  sum(pay.withdraw_salary for pay in salaries)
     #total_salary_paid = sum(pay.payment_amount for pay in salaries)
     total_salary_paid = Salary_Payment.objects.aggregate(total_paid=models.Sum('amount_paid'))['total_paid'] or 0
+    products = Product.objects.annotate(
+        total_price=ExpressionWrapper(
+            F('price') * F('first_quantity'),
+            output_field=DecimalField(max_digits=10, decimal_places=2)
+        )
+    )
 
+    # Calculate total price of all products
+    total_price_all_products = sum(product.total_price for product in products)
+
+    context = {
+        
+    }
 
 
 
     # Prepare the context to pass to the template
     context = {
         'products': products,
+        'total_price_all_products': total_price_all_products,
+        
         'sales': sales,
         'salaries': salaries,
         'total_sales_amount': total_sales_amount,
@@ -209,3 +224,29 @@ def total(request):
     return render(request, 'prd/total.html', context)
 
 
+from django.db.models import F, ExpressionWrapper, DecimalField, Sum
+from django.shortcuts import render
+
+def tot(request):
+    # Calculate total price of each product
+    products = Product.objects.annotate(
+        total_price=ExpressionWrapper(
+            F('price') * F('first_quantity'),
+            output_field=DecimalField(max_digits=10, decimal_places=2)
+        )
+    )
+
+    # Calculate total price of all products
+    total_price_all_products = sum(product.total_price for product in products if product.is_loan==False)
+
+    # Calculate total price of products where is_loan is True
+    total_price_loan_products = Product.objects.filter(is_loan=True).aggregate(
+        total_loan_price=Sum(F('price') * F('first_quantity'), output_field=DecimalField(max_digits=10, decimal_places=2))
+    )['total_loan_price'] or 0
+
+    context = {
+        'products': products,
+        'total_price_all_products': total_price_all_products,
+        'total_price_loan_products': total_price_loan_products,
+    }
+    return render(request, 'prd/kk.html', context)

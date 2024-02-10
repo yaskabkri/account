@@ -55,7 +55,7 @@ urlpatterns = [
     path('list_qrsho/<int:product_id>', views.list_qrsho_pay, name='list_qrsho'),
     path('total/', views.total, name='total'),
     path('qrsho_details/<int:product_id>', views.list_qrsho_detals, name='qrsho_details'),
-    
+    path('tot', views.tot, name='tot'),
    
 
 

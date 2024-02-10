@@ -111,7 +111,7 @@
     <a href="{% url 'home' %}">home</a>
     <a href="{% url 'register' %}">register</a>
     <a href="{% url 'total' %}">Total Sales</a>
-    <a href="?timeframe=day">View Per Day</a> | <a href="?timeframe=month">View Per Month</a>
+    
 
 </nav>
 
@@ -121,7 +121,7 @@
         <div class="dropdown-content">
             <a href="{% url 'salary_list' %}">salaries</a>
             <a href="{% url 'prod_loan' %}">agent details</a>
-            <a href="{% url 'list_product' %}">products <details></details></a>
+            <a href="{% url 'list_product' %}">products details</a>
             <a href="{% url 'boss_list' %}">boss expense</a>
             <a href="{% url 'list_staff' %}">staff</a>
         </div>
@@ -142,6 +142,17 @@
             <a href="{% url 'add_p' %}">add product</a>
             <a href="{% url 'add_cat' %}">add category</a>
             <a href="{% url 'boss_ex' %}">add manager expense</a>
+            <a href="{% url 'add_staff' %}">add staff</a>
+            <a href="{% url 'create_salary' %}">add salary</a>
+        </div>
+    </div>
+
+    <div class="dropdown">
+        <button class="dropbtn">statics</button>
+        <div class="dropdown-content">
+            <a href="{% url 'tot' %}">product vision</a>
+            <a href="{% url 'total' %}">sales looks</a>
+            <a href="{% url 'boss_ex' %}">salarys in time</a>
             <a href="{% url 'add_staff' %}">add staff</a>
             <a href="{% url 'create_salary' %}">add salary</a>
         </div>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.http import HttpResponse
 from .models import Category, Product, Staff, Sale
-from .forms import CategoryForm, ProductForm, StaffForm, SaleForm
+from .forms import CategoryForm, ProductForm, StaffForm, SaleForm,qrsho_Payment
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, render
 from django.utils import timezone
@@ -10,6 +10,13 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from datetime import datetime, timedelta
 from django.db import models
+from django.shortcuts import render
+from django.db.models import Sum
+from .models import Salary, Salary_Payment
+from datetime import date, timedelta
+
+
+    
 
 def home(request):
     timeframe = request.GET.get('timeframe', 'day')  # Default to 'day' if no timeframe is provided
@@ -46,9 +53,40 @@ def home(request):
         if form.is_valid():
             form.save()
 
+    total_salary_day = Salary_Payment.objects.filter(payment_date__date=today).aggregate(total_salary=Sum('amount_paid'))['total_salary']
+    if total_salary_day is None:
+        total_salary_day = 0
 
+    # Calculate total salary paid in the current month
+    month_start = today.replace(day=1)
+    next_month_start = month_start + timedelta(days=32 - month_start.day)
+    month_end = next_month_start - timedelta(days=1)
 
-    # Prepare the context to pass to the template
+    total_salary_month = Salary_Payment.objects.filter(payment_date__range=(month_start, month_end)).aggregate(total_salary=Sum('amount_paid'))['total_salary']
+    if total_salary_month is None:
+        total_salary_month = 0
+    
+    total_payment_day = qrsho_Payment.objects.filter(payment_date__date=today).aggregate(total_payment=Sum('amount_paid'))['total_payment']
+    if total_payment_day is None:
+        total_payment_day = 0
+
+    # Get the first day of the current month
+    month_start = today.replace(day=1)
+
+    # Calculate the last day of the current month
+    next_month_start = month_start + timedelta(days=32 - month_start.day)
+    month_end = next_month_start - timedelta(days=1)
+
+    # Calculate total payment made in the current month
+    total_payment_month = qrsho_Payment.objects.filter(payment_date__range=(month_start, month_end)).aggregate(total_payment=Sum('amount_paid'))['total_payment']
+    if total_payment_month is None:
+        total_payment_month = 0
+
+    context = {
+        
+    }
+
+  # Prepare the context to pass to the template
     context = {
         'products': products,
         'sales': sales,
@@ -62,7 +100,17 @@ def home(request):
         'end_date': end_date,
         'total_payment':total_payment,
         'total_salary_paid ': total_salary_paid ,
-        'form':form
+        'form':form,
+        'total_salary_day': total_salary_day,
+        'total_salary_month': total_salary_month,
+        'today': today,
+        'month_start': month_start,
+        'month_end': month_end,
+        'total_payment_day': total_payment_day,
+        'total_payment_month': total_payment_month,
+        'today': today,
+        'month_start': month_start,
+        'month_end': month_end
     }
     
 

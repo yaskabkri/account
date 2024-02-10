@@ -1,100 +1,143 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-<style>
-    .content-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    max-width: 1000px;
-    margin: 20px auto;
-}
+    <style>
+        /* Add your CSS styles here */
+    
+        .content {
+            width: 800px;
+            border-top: solid 20px;
 
-.form-container {
-    width: 45%;
-}
 
-.sales-container {
-    width: 45%;
-}
+        }
 
-.total-sales-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
 
-.total-sales-table th, .total-sales-table td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-}
+        .timeframe-select {
+            margin-top: 10px;
+            text-align: center;
+        }
+        .timeframe-select select {
+            padding: 5px;
+            font-size: 16px;
+        }
+        .timeframe-select button {
+            padding: 5px 10px;
+            font-size: 16px;
+            cursor: pointer;
+        }
 
-.total-sales-table th {
-    background-color: #f2f2f2;
-}
+        .form-container {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            border-top: 40px solid rgb(65, 62, 62); /* Adjusted to 20px top border */
+            
+        }
 
-.total-sales-table td {
-    background-color: #f02727;
-}
+        .form-container form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
 
-.timeframe-select {
-    margin-top: 10px;
-    text-align: center;
-}
+        .form-container label, .form-container input {
+            margin: 5px;
+        }
 
-.timeframe-select select {
-    padding: 5px;
-    font-size: 16px;
-}
+        .form-container input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
 
-.timeframe-select button {
-    padding: 5px 10px;
-    font-size: 16px;
-    cursor: pointer;
-}
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .day {
+            max-width: 200px;
+            height: 10px;
+            margin-left: 500px auto;
+            padding: 5px;
+            background-color: #eef8f6;
+           
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .agnt {
+            max-width: 200px;
+            margin-left: 500px;
+            padding: 5px;
+            background-color: #f8f2f2;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-</style>
-    <div class="content-container">
-        <div class="form-container">
-            <h4>User Name: {{ user }}</h4>
+        .sal {
+            max-width: 200px;
+            margin-left: 500px;
+            padding: 5px;
+            background-color: #f3eded;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .tab {
+            
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div class="tab">
+    <table class="day">
+        <tr>
+            <th><h5>staff $</h5></th>
+            <th>{{total_salary_day}}</th>
+        </tr>
 
-            <form method="post" action="{% url 'add_sale' %}">
-                {% csrf_token %}
-                {{ form.as_p }}
+    </table>
 
-                <button type="submit">Add Product</button>
-            </form>
-        </div>
-
-        <div class="sales-container">
-            <h1>Total Sales</h1>
-            <table class="total-sales-table">
-                <tr>
-                    <th>Attribute</th>
-                    <th>Total</th>
-                </tr>
-                <tr>
-                    <td>Total Sales Amount</td>
-                    <td>${{ total_sales_amount }}</td>
-                </tr>
-               
-                <tr>
-                    <td>Total Sale Credit</td>
-                    <td>${{ total_sale_credit }}</td>
-                </tr>
-                
-            </table>
-            <!-- Timeframe selection dropdown -->
-            <div class="timeframe-select">
-                <form method="get" action="{% url 'total' %}">
-                    <select name="timeframe" id="timeframe">
-                        <option value="day" {% if timeframe == 'day' %}selected{% endif %}>Per Day</option>
-                        <option value="month" {% if timeframe == 'month' %}selected{% endif %}>Per Month</option>
-                    </select>
-                    <button type="submit">Submit</button>
-                </form>
-            </div>
-        </div>
+    <table class="agnt">
+        <tr>
+            <th>agent $</th>
+            <th>{{total_payment_day}}</th>
+        </tr>
+        
+    </table>
+    <table class="sal">
+        <tr>
+            <th>sale $</th>
+            <th>{{total_sales_amount}}</th>
+        </tr>
+        
+    </table>
     </div>
+        
+    <h3>add sale</h3>
+    <div class="form-container">
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+   
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
